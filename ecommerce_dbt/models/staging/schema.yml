@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Modèle de staging nettoyant les données brutes des clients Olist."
+    columns:
+      - name: customer_id
+        description: "Clé primaire de la table client."
+        tests:
+          - unique
+          - not_null
+      - name: customer_unique_id
+        description: "Identifiant unique du client (un même client peut avoir plusieurs customer_id s'il achète plusieurs fois)."
+        tests:
+          - not_null
+
+  - name: stg_orders
+    description: "Modèle de staging nettoyant les données brutes des commandes Olist."
+    columns:
+      - name: order_id
+        description: "Clé primaire de la commande."
+        tests:
+          - unique
+          - not_null
+      - name: status
+        description: "Statut actuel de la commande."
+        tests:
+          - accepted_values:
+              values: ['created', 'approved', 'invoiced', 'processing', 'shipped', 'delivered', 'unavailable', 'canceled']
+
+  - name: stg_states_population
+    description: "Tiré de Wikipédia. Population de chaque État brésilien."
+    columns:
+      - name: state_code
+        description: "Code de l'État (ex: SP pour São Paulo)."
+        tests:
+          - unique
+          - not_null
+      - name: population
+        description: "Nombre d'habitants converti en entier."
+        tests:
+          - not_null

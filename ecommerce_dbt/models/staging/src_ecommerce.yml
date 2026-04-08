@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    description: "Les données brutes issues des 3 systèmes d'ingestion (Olist, API, Scraping)"
+    tables:
+      - name: customers_dataset
+      - name: orders_dataset
+      - name: order_items_dataset
+      - name: products_dataset
+      - name: exchange_rates
+      - name: states_population

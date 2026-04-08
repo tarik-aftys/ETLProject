@@ -1,0 +1,12 @@
+ecommerce_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: dwh_postgres 
+      user: mon_admin
+      password: mon_super_mot_de_passe
+      port: 5432
+      dbname: ecommerce_dw
+      schema: core 
+      threads: 4

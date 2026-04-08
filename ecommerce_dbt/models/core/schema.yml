@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: fact_orders
+    description: "Table de faits centrale consolidant les commandes, le chiffre d'affaires et la conversion en dollars (USD)."
+    columns:
+      - name: order_id
+        description: "Identifiant unique de la commande."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Clé étrangère vers la dimension client."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+      - name: revenue_brl
+        description: "Chiffre d'affaires total de la commande en Réal brésilien (BRL)."
+      - name: revenue_usd
+        description: "Chiffre d'affaires converti en Dollar (USD) en utilisant le taux de change du jour de la commande."
+
+  - name: dim_customers
+    description: "Dimension Customer. Enrichie avec la population de l'état brésilien."
+    columns:
+      - name: customer_id
+        description: "Clé primaire."
+        tests:
+          - unique
+          - not_null
+      - name: state_population
+        description: "Population de l'État où réside le client."
